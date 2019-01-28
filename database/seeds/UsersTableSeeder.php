@@ -15,14 +15,14 @@ class UsersTableSeeder extends Seeder
         if(App\User::count() == 0){
             App\User::create([
                 'login_id' => str_random(5),
-                'nickname' => 'guest',
+                //'fixed_nickname' => 'guest',
                 'email' => 'guest@example.com',
                 'password' => bcrypt(str_random(10))
             ]);
 
             App\User::create([
                 'login_id' => 'admin',
-                'nickname' => 'admin',
+                'fixed_nickname' => 'admin',
                 'email' => 'admin@example.com',
                 'password' => bcrypt('qweqwe')
             ]);
