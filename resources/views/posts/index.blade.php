@@ -19,7 +19,7 @@
                                 <tr>
                                     <td scope="row">{{$post->id}}</td>
                                     <td>{{$post->title}}</td>
-                                    <td>{{$post->user_name}}</td>
+                                    <td>{{$post->nickname}}</td>
                                 </tr>
 
                             @endforeach
