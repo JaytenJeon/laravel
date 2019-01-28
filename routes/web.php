@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/post');
+    return redirect('/posts');
 });
 
 Auth::routes();
