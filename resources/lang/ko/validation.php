@@ -92,7 +92,7 @@ return [
     'numeric'              => ':attribute은(는) 숫자여야 합니다.',
     'present'              => ':attribute 필드가 있어야 합니다.',
     'regex'                => ':attribute 형식이 유효하지 않습니다.',
-    'required'             => ':attribute 필드는 필수입니다.',
+    'required'             => ':attribute 은(는) 필수입니다.',
     'required_if'          => ':other이(가) :value 일 때 :attribute 필드는 필수입니다.',
     'required_unless'      => ':other이(가) :values에 없다면 :attribute 필드는 필수입니다.',
     'required_with'        => ':values이(가) 있는 경우 :attribute 필드는 필수입니다.',
@@ -142,5 +142,7 @@ return [
     */
 
     'attributes' => [
+        'login_id' =>'아이디',
+        'fixed_nickname' =>'닉네임'
     ],
 ];

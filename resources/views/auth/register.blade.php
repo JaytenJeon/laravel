@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group">
-                            <label for="l   ogin_id" class="col-md-4 col-form-label">{{ __('아이디') }}</label>
+                            <label for="id" class="col-md-4 col-form-label">{{ __('아이디') }}</label>
 
                             <div class="col-md">
                                 <input id="login_id" placeholder="아이디를 입력 해주세요." type="text" class="form-control{{ $errors->has('login_id') ? ' is-invalid' : '' }}" name="login_id" value="{{ old('login_id') }}" required autofocus>
@@ -25,17 +25,33 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="col-md-4 col-form-label">{{ __('Name') }}</label>
+                            <label for="fixed_nickname" class="col-md col-form-label">{{ '닉네임' }}</label>
 
-                            <div class="col-md">
-                                <input id="name" type="text" placeholder="이름을 입력 해주세요." class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required >
+                            <div class="row col-md pr-0 mb-2">
+                                <div class="col-md-8 pr-0">
+                                    <input id="fixed_nickname" type="text" placeholder="닉네임을 입력 해주세요." class="form-control{{ $errors->has('fixed_nickname') ? ' is-invalid' : '' }}" name="fixed_nickname" value="{{ old('nickname') }}" required >
 
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('fixed_nickname'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('fixed_nickname') }}</strong>
+                                        </span>
+                                    @endif
+
+                                </div>
+
+                                <div class="input-group col-md-4 pr-0">
+
+                                    <select class="custom-select bg-light" id="inputGroupSelect01">
+                                        <option selected value="1">고정닉</option>
+                                        <option value="2">비고정닉</option>
+                                    </select>
+                                </div>
                             </div>
+                            <div class="col-md">
+                                <span class="col-md badge badge-light pt-2 pb-2">고정닉은 중복이 불가능하며, 비고정닉은 중복이 가능합니다</span>
+
+                            </div>
+
                         </div>
 
                         <div class="form-group">
