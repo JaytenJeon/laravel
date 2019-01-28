@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
         $users = App\User::where('id','>',2);
 
         $users->each(function ($user){
-            $posts = factory(App\Post::class, 5)->make(['user_name'=>$user->name]);
+            $posts = factory(App\Post::class, 5)->make(['nickname'=>$user->name]);
             foreach ($posts as $post){
                 $user->posts()->save(
                     $post
