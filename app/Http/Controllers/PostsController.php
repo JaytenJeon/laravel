@@ -18,7 +18,7 @@ class PostsController extends Controller
     public function index()
     {
         //
-        $posts = \App\Post::orderBy('id','desc')->get();
+        $posts = \App\Post::orderBy('id','desc')->paginate(10);
         return view('posts.index',compact('posts'));
     }
 

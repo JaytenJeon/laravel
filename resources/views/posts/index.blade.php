@@ -5,12 +5,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">프로그래밍 갤러리</div>
-                    <div class="card-body">
+                    <div class="card-body p-0 pr-3 pl-3">
                         <table class="table">
-                            <thead>
+                            <thead  >
                             <tr>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th class="text-center">제목</th>
                                 <th>작성자</th>
                             </tr>
                             </thead>
@@ -25,10 +25,21 @@
                             @endforeach
 
                             </tbody>
+
                         </table>
+
+
                     </div>
+
+
                 </div>
+
             </div>
+            @if($posts->count())
+                <div class="m-3 text-center">
+                    {!! $posts->links() !!}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
