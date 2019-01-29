@@ -25,11 +25,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="fixed_nickname" class="col-md col-form-label">{{ '닉네임' }}</label>
+                            <label for="nickname" class="col-md col-form-label">{{ '닉네임' }}</label>
 
                             <div class="row col-md pr-0 mb-2">
                                 <div class="col-md-8 pr-0">
-                                    <input id="fixed_nickname" type="text" placeholder="닉네임을 입력 해주세요." class="form-control{{ $errors->has('fixed_nickname') ? ' is-invalid' : '' }}" name="fixed_nickname" value="{{ old('nickname') }}" required >
+                                    <input id="fixed_nickname" type="text" placeholder="닉네임을 입력 해주세요." class="form-control{{ $errors->has('fixed_nickname') ? ' is-invalid' : '' }}" name="fixed_nickname" value="{{ old('fixed_nickname') }}" required >
 
                                     @if ($errors->has('fixed_nickname'))
                                         <span class="invalid-feedback" role="alert">
