@@ -12,10 +12,10 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         //
-        $users = App\User::where('id','>',2);
+        $users = App\User::all();
 
         $users->each(function ($user){
-            $posts = factory(App\Post::class, 5)->make(['nickname'=>$user->fixed_nickname]);
+            $posts = factory(App\Post::class, 5)->make();
             foreach ($posts as $post){
                 $user->posts()->save(
                     $post

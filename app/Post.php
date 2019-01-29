@@ -11,11 +11,11 @@ class Post extends Model
     //
     use SoftDeletes;
     protected $fillable = [
-        'title', 'text', 'fixed_nickname', 'user_id'
+        'title', 'text', 'postable_id', 'postable_type'
     ];
     protected  $dates = ['deleted_at'];
 
-    public  function user(){
-        return $this->belongsTo(User::class);
+    public  function postable(){
+        return $this->morphTo();
     }
 }
