@@ -51,7 +51,8 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->fixed_nickname }} <span class="caret"></span>
+                                    {{Auth::user()->fixed_nickname?:Auth::user()->unfixed_nickname}} {!! Auth::user()->fixed_nickname?'<span class="badge badge-warning">'.'고정닉'.'</span>':'<span class="badge badge-light">'.'비고정닉'.'</span>'  !!}
+                                    <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

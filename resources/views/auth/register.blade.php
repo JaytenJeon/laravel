@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form id="form" method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group">
                             <label for="id" class="col-md-4 col-form-label">{{ __('아이디') }}</label>
@@ -29,21 +29,26 @@
 
                             <div class="row col-md pr-0 mb-2">
                                 <div class="col-md-8 pr-0">
-                                    <input id="fixed_nickname" type="text" placeholder="닉네임을 입력 해주세요." class="form-control{{ $errors->has('fixed_nickname') ? ' is-invalid' : '' }}" name="fixed_nickname" value="{{ old('fixed_nickname') }}" required >
+                                    <input id="nickname" type="text" placeholder="닉네임을 입력 해주세요." class="form-control{{ $errors->has('fixed_nickname') | $errors->has('unfixed_nickname') ? ' is-invalid' : '' }}" name="nickname" value="{{ old('nickname') }}" required >
 
                                     @if ($errors->has('fixed_nickname'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('fixed_nickname') }}</strong>
                                         </span>
+                                    @elseif ($errors->has('unfixed_nickname'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('unfixed_nickname') }}</strong>
+                                    </span>
+
                                     @endif
 
                                 </div>
 
                                 <div class="input-group col-md-4 pr-0">
 
-                                    <select class="custom-select bg-light" id="inputGroupSelect01">
-                                        <option selected value="1">고정닉</option>
-                                        <option value="2">비고정닉</option>
+                                    <select class="custom-select bg-light" name="isFixed" form="form">
+                                        <option {{old('isFixed')=='1'?'selected':""}} value="1">고정닉</option>
+                                        <option {{old('isFixed')=='0'?'selected':""}} value="0">비고정닉</option>
                                     </select>
                                 </div>
                             </div>

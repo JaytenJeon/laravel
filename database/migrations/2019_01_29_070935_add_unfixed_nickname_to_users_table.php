@@ -15,6 +15,7 @@ class AddUnfixedNicknameToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->string('unfixed_nickname')->after('fixed_nickname')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddUnfixedNicknameToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->dropColumn('unfixed_nickname');
         });
     }
 }

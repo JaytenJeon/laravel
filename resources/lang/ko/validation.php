@@ -143,6 +143,7 @@ return [
 
     'attributes' => [
         'login_id' =>'아이디',
-        'fixed_nickname' =>'닉네임'
+        'fixed_nickname' =>'고정닉네임',
+        'unfixed_nickname' =>'비고정닉네임'
     ],
 ];

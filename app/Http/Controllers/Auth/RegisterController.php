@@ -48,9 +48,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        if(boolval($data['isFixed'])){
+            $data['fixed_nickname'] = $data['nickname'];
+            $data['unfixed_nickname'] = null;
+
+        }else{
+            $data['unfixed_nickname'] = $data['nickname'];
+            $data['fixed_nickname'] = null;
+
+        }
+
         return Validator::make($data, [
             'login_id' => ['required', 'string', 'max:255', 'unique:users'],
-            'fixed_nickname' => ['required', 'string', 'max:255', 'unique:users'],
+            'fixed_nickname' => ['required_without:unfixed_nickname', 'string', 'max:255','nullable', 'unique:users'],
+            'unfixed_nickname' => ['required_without:fixed_nickname', 'string', 'max:255','nullable'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
@@ -64,9 +75,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if(boolval($data['isFixed'])){
+        $data['fixed_nickname'] = $data['nickname'];
+        $data['unfixed_nickname'] = null;
+
+        }else{
+            $data['unfixed_nickname'] = $data['nickname'];
+            $data['fixed_nickname'] = null;
+
+        }
+
         return User::create([
             'login_id' => $data['login_id'],
-            'fixed_nickname' => $data['nickname'],
+            'fixed_nickname' => $data['fixed_nickname'],
+            'unfixed_nickname' => $data['unfixed_nickname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

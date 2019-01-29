@@ -9,9 +9,9 @@
                         <table class="table table-hover">
                             <thead  >
                             <tr>
-                                <th style="width:10%">번호</th>
+                                <th style="width:5%">번호</th>
                                 <th style="width:70%" class="text-center">제목</th>
-                                <th style="width:20%" class="">작성자</th>
+                                <th style="width:25%" class="text-center">작성자</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -19,7 +19,7 @@
                                 <tr>
                                     <td scope="row">{{$post->id}}</td>
                                     <td>{{$post->title}}</td>
-                                    <td>{{$post->nickname}}</td>
+                                    <td>{{$post->user->fixed_nickname }} {!! $post->user->fixed_nickname?'<span class="badge badge-warning">'.'고정닉'.'</span>':'<span class="badge badge-light">'.'비고정닉'.'</span>'  !!}</td>
                                 </tr>
 
                             @endforeach
