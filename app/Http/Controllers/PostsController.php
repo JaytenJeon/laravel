@@ -65,7 +65,8 @@ class PostsController extends Controller
         if(!$post){
             return redirect(route('posts.index'))->with(['flash_message'=>'비정상적인 접근입니다.', 'flash_type'=>'danger']);
         }
-        return view('posts.show',compact('post'));
+        $prev = url()->previous();
+        return view('posts.show',compact('post'))->with('list',$prev);
     }
 
     /**
