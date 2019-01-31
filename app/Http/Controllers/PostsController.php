@@ -10,6 +10,7 @@ class PostsController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +31,7 @@ class PostsController extends Controller
     public function create()
     {
         //
+        return view('posts.create');
     }
 
     /**
@@ -38,9 +40,15 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StorePost $request)
     {
         //
+        $post = auth()->user()->posts()->create($request->all());
+        if(!$post){
+            return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
+        }
+        return redirect(route('posts.index'))->with('flash_message', '글이 저장되었습니다.')->withInput();
+
     }
 
     /**

@@ -19,7 +19,7 @@
                                 <tr>
                                     <td scope="row">{{$post->id}}</td>
                                     <td>{{$post->title}}</td>
-                                    <td class="text-center">{{$post->postable->fixed_nickname }} {!! $post->postable->fixed_nickname?'<span class="badge badge-warning">'.'고정닉'.'</span>':'<span class="badge badge-light">'.'비고정닉'.'</span>'  !!}</td>
+                                    <td class="text-center">{{$post->postable->fixed_nickname?:$post->postable->unfixed_nickname }} {!! $post->postable->fixed_nickname?'<span class="badge badge-warning">'.'고정닉'.'</span>':'<span class="badge badge-light">'.'비고정닉'.'</span>'  !!}</td>
                                 </tr>
 
                             @endforeach

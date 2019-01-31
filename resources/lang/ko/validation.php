@@ -144,6 +144,8 @@ return [
     'attributes' => [
         'login_id' =>'아이디',
         'fixed_nickname' =>'고정닉네임',
-        'unfixed_nickname' =>'비고정닉네임'
+        'unfixed_nickname' =>'비고정닉네임',
+        'title' => '제목',
+        'text' => '본문',
     ],
 ];
