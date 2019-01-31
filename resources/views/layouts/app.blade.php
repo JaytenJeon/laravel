@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
- 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -73,7 +73,7 @@
             </div>
         </nav>
         @if(session()->has('flash_message'))
-            <div class="alert alert-info text-center" role="alert" id="alert">
+            <div class="alert alert-{{session('flash_type')?:'info'}} text-center" role="alert" id="alert">
                 <strong>
                 {{ session('flash_message') }}
                 </strong>

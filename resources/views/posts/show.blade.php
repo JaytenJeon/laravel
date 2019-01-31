@@ -9,9 +9,14 @@
 
                         <strong class="font-weight-bold  d-inline-block p-1 m-1">프로그래밍 갤러리</strong>
                         <div class="float-right">
-
-                            <a href="#"  class="btn btn-outline-primary">수정</a>
-                            <a href="#"  class="btn btn-outline-danger">삭제</a>
+                            @if( auth()->user()->id == $post['postable_id'])
+                            <a href="{{route('posts.edit',$post['id'])}}"  class="btn btn-outline-primary">수정</a>
+                            <form class="float-right ml-1" action="{{ route('posts.destroy',$post['id']) }}" method="post">
+                                {!! method_field('delete') !!}
+                                {!! csrf_field() !!}
+                                <button type="submit"   class="btn btn-outline-danger">삭제</button>
+                            </form>
+                            @endif
                         </div>
 
                     </div>
@@ -27,7 +32,9 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md">
-                                        {{$post['text']}}
+
+                                        {!! nl2br(e($post['text']))!!}
+
                                     </div>
 
                                 </div>

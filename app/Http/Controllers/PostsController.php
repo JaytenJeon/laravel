@@ -58,9 +58,13 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+
     {
         //
         $post = \App\Post::find($id);
+        if(!$post){
+            return redirect(route('posts.index'))->with(['flash_message'=>'비정상적인 접근입니다.', 'flash_type'=>'danger']);
+        }
         return view('posts.show',compact('post'));
     }
 
@@ -72,6 +76,12 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        $post = \App\Post::find($id);
+        if(auth()->user()->id != $post->postable_id){
+            return redirect(route('posts.index'))->with(['flash_message'=>'권한이 없습니다', 'flash_type'=>'danger'])->withInput();
+        }
+        return view('posts.edit',compact('post'));
+
         //
     }
 
@@ -85,6 +95,18 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $post = \App\Post::find($id);
+        if(($post['postable_id']!=auth()->user()->id) || !$post){
+            return redirect(route('posts.index'))->with(['flash_message'=>'권한이 없습니다', 'flash_type'=>'danger'])->withInput();
+
+        }
+        $result = $post->update($request->all());
+        if(!$result){
+            return back()->with(['flash_message', '글을 수정하지 못했습니다.', 'flash_type'=>'danger'])->withInput();
+        }
+        return redirect(route('posts.show',$id))->with('flash_message', '글을 수정했습니다.')->withInput();
+
+
     }
 
     /**
@@ -96,5 +118,15 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = \App\Post::find($id);
+        if(auth()->user()->id != $post->postable_id){
+            return redirect(route('posts.index'))->with(['flash_message'=>'권한이 없습니다', 'flash_type'=>'danger'])->withInput();
+        }
+        $result = $post->delete();
+        if(!$result){
+            return back()->with(['flash_message', '글을 삭제하지 못했습니다.', 'flash_type'=>'danger'])->withInput();
+        }
+        return redirect(route('posts.index'))->with('flash_message', '글을 삭제했습니다.')->withInput();
+
     }
 }
