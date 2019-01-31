@@ -31,7 +31,3 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app'
 });
-
-$("#alert").fadeTo(2000, 500).slideUp(500, function(){
-    $("#alert").slideUp(500);
-});
