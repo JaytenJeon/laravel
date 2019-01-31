@@ -42,6 +42,8 @@
 
             </div>
             @if($posts->count())
+                {{session()->put('page',$posts->currentPage())}}
+
                 <div class="m-3 text-center">
                     {!! $posts->links() !!}
                 </div>

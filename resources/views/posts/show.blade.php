@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header text-center p-2">
 
-                        <a href="{{  $list}}"  class="float-left btn btn-outline-primary">목록</a>
+                        <a href="{{ route('posts.index',['page'=>session('page')])}}"  class="float-left btn btn-outline-primary">목록</a>
 
                         <strong class="font-weight-bold  d-inline-block p-1 m-1">프로그래밍 갤러리</strong>
                         <div class="float-right">
