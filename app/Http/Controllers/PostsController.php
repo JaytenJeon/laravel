@@ -60,6 +60,8 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+        $post = \App\Post::find($id);
+        return view('posts.show',compact('post'));
     }
 
     /**
