@@ -4,7 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">프로그래밍 갤러리</div>
+                    <div class="card-header text-center p-2">
+
+                        <strong class="font-weight-bold  d-inline-block p-1 m-1">프로그래밍 갤러리</strong>
+                        <a href="{{route('posts.create')}}"  class="float-md-right btn btn-outline-primary">글쓰기</a>
+                    </div>
+
                     <div class="card-body p-0 pr-3 pl-3">
                         <table class="table table-hover">
                             <thead  >
@@ -40,6 +45,9 @@
                     {!! $posts->links() !!}
                 </div>
             @endif
+
         </div>
+
     </div>
+
 @endsection
