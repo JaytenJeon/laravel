@@ -23,21 +23,10 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md">
-                                        <textarea type="text" class="form-control {{ $errors->has('text') ? ' is-invalid' : '' }}" name="text" value="{{ old('text') }}" id="text"
-                                                  placeholder="본문을 입력하세요" rows="10" style="resize:none">
-                                        </textarea>
-                                        @if ($errors->has('text'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('text') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                <div id="editSection"></div>
 
-                                </div>
 
-                                <div class="form-group  mb-0">
+                                <div class="form-group  mb-0 mt-2">
                                     <button type="submit" class="col-md btn btn-primary">
                                         {{ __('작성하기') }}
                                     </button>
@@ -50,4 +39,16 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('script')
+    <script>
+        var editor = tui.Editor.factory({
+            el: document.getElementById('editSection'),
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            height: 300
+        });
+    </script>
 @endsection
