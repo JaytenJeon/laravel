@@ -1,4 +1,18 @@
 @extends('layouts.app')
+@section('tui')
+    <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ asset('bower_components/tui-code-snippet/dist/tui-code-snippet.js') }}"></script>
+    <script src="{{ asset('bower_components/markdown-it/dist/markdown-it.js') }}"></script>
+    <script src="{{ asset('bower_components/to-mark/dist/to-mark.js') }}"></script>
+    <script src="{{ asset('bower_components/codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('bower_components/highlightjs/highlight.pack.js') }}"></script>
+    <script src="{{ asset('bower_components/squire-rte/build/squire-raw.js') }}"></script>
+    <script src="{{ asset('bower_components/tui-editor/dist/tui-editor-Viewer.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('bower_components/codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/highlightjs/styles/github.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/tui-editor/dist/tui-editor.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/tui-editor/dist/tui-editor-contents.css') }}">
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -8,7 +22,7 @@
 
                         <a href="{{ route('posts.index',['page'=>session('page')])}}"  class="float-left btn btn-outline-primary">목록</a>
 
-                        <strong class="font-weight-bold  d-inline-block p-1 m-1">프로그래밍 갤러리</strong>
+                        <strong class="font-weight-bold  d-inline-block p-1 m-1">게시판</strong>
                         <div class="float-right">
                             @if( auth()->user()->id == $post['postable_id'])
                             <a href="{{route('posts.edit',$post['id'])}}"  class="btn btn-outline-primary">수정</a>
@@ -43,22 +57,23 @@
                     </div>
                     <div class="card-body p-3 pr-3 pl-3">
                         <div class="container">
-                                {!! csrf_field() !!}
-                                <div class="form-group row">
-                                    <div class="col-md">
-                                        <h4>{{$post['title']}}</h4>
-                                        <hr>
-                                    </div>
-
+                            {!! csrf_field() !!}
+                            <div class="form-group row">
+                                <div class="col-md">
+                                    <h4>{{$post['title']}}</h4>
+                                    <hr class=" mb-0">
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md">
 
-                                        {!! nl2br(e($post['text']))!!}
+                            </div>
+                            <div id="editSection"></div>
+                                {{--<div class="form-group row">--}}
+                                    {{--<div class="col-md">--}}
 
-                                    </div>
+                                        {{--{!! nl2br(e($post['text']))!!}--}}
 
-                                </div>
+                                    {{--</div>--}}
+
+                                {{--</div>--}}
 
                         </div>
 
@@ -67,5 +82,18 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script >
 
+        var text = "{{join("\\n",explode("\r\n",$post['text']))}}"
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var editor = new tui.Editor({
+                el: document.getElementById('editSection'),
+                height: 300,
+                initialValue: text
+
+            });
+        })
+    </script>
 @endsection

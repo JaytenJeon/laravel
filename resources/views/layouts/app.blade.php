@@ -18,18 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
-    <script src="{{ asset('bower_components/tui-code-snippet/dist/tui-code-snippet.js') }}"></script>
-    <script src="{{ asset('bower_components/markdown-it/dist/markdown-it.js') }}"></script>
-    <script src="{{ asset('bower_components/to-mark/dist/to-mark.js') }}"></script>
-    <script src="{{ asset('bower_components/codemirror/lib/codemirror.js') }}"></script>
-    <script src="{{ asset('bower_components/highlightjs/highlight.pack.js') }}"></script>
-    <script src="{{ asset('bower_components/squire-rte/build/squire-raw.js') }}"></script>
-    <script src="{{ asset('bower_components/tui-editor/dist/tui-editor-Editor-all.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('bower_components/tui-editor/dist/tui-editor.css') }}">
-    <link rel="stylesheet" href="{{ asset('bower_components/tui-editor/dist/tui-editor-contents.css') }}">
-    <link rel="stylesheet" href="{{ asset('bower_components/codemirror/lib/codemirror.css') }}">
-    <link rel="stylesheet" href="{{ asset('bower_components/highlightjs/styles/github.css') }}">
+    @yield('tui')
 
 </head>
 <body>
@@ -100,7 +89,8 @@
         </main>
 
     </div>
-@yield('script')
+    @yield('script')
+
 </body>
 
 </html>

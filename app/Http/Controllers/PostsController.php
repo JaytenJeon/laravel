@@ -43,6 +43,7 @@ class PostsController extends Controller
     public function store(\App\Http\Requests\StorePost $request)
     {
         //
+
         $post = auth()->user()->posts()->create($request->all());
         if(!$post){
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
@@ -76,6 +77,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+
         $post = \App\Post::find($id);
         if(auth()->user()->id != $post->postable_id){
             return redirect(route('posts.index'))->with(['flash_message'=>'권한이 없습니다', 'flash_type'=>'danger'])->withInput();
@@ -95,6 +97,9 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $pasedown = new \Parsedown();
+        $pasedown ->setSafeMode(true);
+        $request['text'] = $pasedown->text(htmlspecialchars($request['text']));
         $post = \App\Post::find($id);
         if(($post['postable_id']!=auth()->user()->id) || !$post){
             return redirect(route('posts.index'))->with(['flash_message'=>'권한이 없습니다', 'flash_type'=>'danger'])->withInput();
