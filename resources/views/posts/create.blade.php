@@ -47,7 +47,7 @@
 
 
                                 <div class="form-group  mb-0 mt-2">
-                                    <button id='submit' type="submit" class="col-md btn btn-primary">
+                                    <button id='submitBtn' type="submit" class="col-md btn btn-primary">
                                         {{ __('작성하기') }}
                                     </button>
                                 </div>
@@ -64,15 +64,80 @@
 
 @section('script')
     <script >
+        var tempFiles = {};
+        var finalFiles = [];
         document.addEventListener("DOMContentLoaded", function(event) {
             var editor = tui.Editor.factory({
                 el: document.getElementById('editSection'),
                 initialEditType: 'markdown',
                 previewStyle: 'vertical',
-                height: 300
+                height: 500,
+                initialValue: '{{ old('text') }}',
+                events: {
+                    'change': function(){
+                        document.getElementById('text').value = editor.getValue();
+                    }
+                },
+                hooks: {
+                    'addImageBlobHook': function(blob, callback){
+                        var url=URL.createObjectURL(blob);
+                        tempFiles[url] = blob;
+                        callback(url);
+                        return false;
+                    }
+                }
+
             });
-            document.getElementById('submit').addEventListener("click", function(event){
-                document.getElementById('text').value = editor.getValue();
+            var form = document.forms.namedItem('form');
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                if(Object.keys(tempFiles).length == 0){
+                    alert(1);
+                    form.submit();
+                    return false;
+                }
+                var title = document.getElementById('title').value;
+                var text = document.getElementById('text').value;
+                if(title=="" || text==""){
+                    form.submit();
+                    return false;
+                }
+                var regex = /\((blob:.*?)\)/g;
+                var m ;
+                while((m = regex.exec(text)) !== null){
+                    finalFiles.push(tempFiles[m[1]]);
+                }
+
+
+                var fd = new FormData(document.forms.namedItem('form'));
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function(){
+                    if (this.status == 200) {
+                        var json = JSON.parse(xhr.response);
+
+                        for (var key in json) {
+                            // alert(key);
+                            var input = document.createElement("input");
+                            input.setAttribute('type', 'hidden');
+                            input.setAttribute('name', 'images[]');
+                            input.setAttribute('value', key);
+                            // console.log(key);
+                            form.appendChild(input);
+                        }
+                        form.submit();
+
+                    }
+                    return false;
+                };
+                xhr.open("POST", '{{route('images.store')}}');
+                xhr.setRequestHeader('X-CSRF-TOKEN', document.getElementsByName("csrf-token")[0].content);
+
+                for(var i in finalFiles){
+                    fd.append('files[]',finalFiles  [i]);
+                }
+                console.log(fd.getAll('files[]'));
+                xhr.send(fd);
+
             });
         })
 

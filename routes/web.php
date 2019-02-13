@@ -20,6 +20,7 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostsController');
 
+Route::resource('images', 'ImagesController', ['only' => ['store','destroy']]);
 //DB::listen(function ($query){
 //    dump($query->sql);
 //});

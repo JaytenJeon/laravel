@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use function MongoDB\BSON\toJSON;
 
 class PostsController extends Controller
 {
@@ -44,10 +45,35 @@ class PostsController extends Controller
     {
         //
 
+        $images = null;
+        if($request->has('images')) {
+            $pattern = '/\((blob:.*?)\)/';
+            $images = \App\Image::whereIn('id', $request->input('images'))->get();
+
+            foreach ($images as $image){
+//                $path = '('.url("images/{$image->name}").')';
+                $path = '('.asset("storage/files/{$image->name}").')';
+
+                $request['text'] = preg_replace($pattern, $path, $request['text'], 1);
+            }
+        }
+
+
         $post = auth()->user()->posts()->create($request->all());
         if(!$post){
             return back()->with('flash_message', '글이 저장되지 않았습니다.')->withInput();
         }
+
+        if(! $images==null){
+            $images->each(function ($image) use($post){
+                $image->post()->associate($post);
+                $image->save();
+            });
+//            echo dd($images);
+        }else{
+            echo "<script> alert(1); </script>";
+
+    }
         return redirect(route('posts.index'))->with('flash_message', '글이 저장되었습니다.')->withInput();
 
     }
