@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header text-center">
-                    <strong class="font-weight-bold  d-inline-block">프로그래밍 갤러리</strong>
+                    <strong class="font-weight-bold  d-inline-block">게시판</strong>
                 </div>
                 <div class="card-body p-3 pr-3 pl-3">
                     <div class="container">

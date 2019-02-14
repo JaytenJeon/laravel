@@ -20,6 +20,10 @@ class Post extends Model
     }
 
     public function images(){
-        return $this->hasMany('App\Image');
+        return $this->hasMany(Image::class);
+    }
+
+    public function comments(){
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

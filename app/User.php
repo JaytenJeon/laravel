@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function posts(){
         return $this->morphMany(Post::class, 'postable');
     }
+
+    public function comments(){
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

@@ -7,7 +7,7 @@
                     <div class="card-header text-center p-2">
                         <div   class="float-md-left col-md-1"></div>
 
-                        <strong class="font-weight-bold d-inline-block p-1 m-1">프로그래밍 갤러리</strong>
+                        <strong class="font-weight-bold d-inline-block p-1 m-1">게시판</strong>
                         <a href="{{route('posts.create')}}"  class="float-right btn btn-outline-primary">글쓰기</a>
                     </div>
 
