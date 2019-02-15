@@ -17,12 +17,12 @@ class Comment extends Model
 
     public function replies()
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id')->withTrashed();
     }
 
     public function parent()
     {
-        return $this->belongsTo(Comment::class, 'id', 'parent_id');
+        return $this->belongsTo(Comment::class, 'id', 'parent_id')->withTrashed();
     }
 
     public function commentable()

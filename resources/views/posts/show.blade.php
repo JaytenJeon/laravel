@@ -73,24 +73,11 @@
                     </div>
                 </div>
                 <div class="h6 mt-4"><strong>{{$comments->count()}} Comments</strong></div>
-                @foreach($comments as $comment)
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <strong>{!!$comment->authorable->fixed_nickname?$comment->authorable->fixed_nickname . '<span class="badge badge-warning ml-2">'.'고정닉'.'</span>':$comment->authorable->unfixed_nickname.'<span class="badge badge-secondary ml-2">'.'비고정닉'.'</span>'!!}</strong>
-                            <small class="ml-2">{{elapsedTime(strtotime($comment->updated_at))}}</small>
-                            @if($comment->authorable->id == auth()->user()->id)
-                                <button data-toggle="modal" data-target="#commentModal" class="close"  aria-label="Close" onClick="closeClick({{$comment->id}})">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">{{$comment->text}}</p>
-                        </div>
-                    </div>
+                @foreach($comments->where('parent_id',null) as $comment)
+                    @include('partials.comment',[$comment,'ml'=>0])
                 @endforeach
                 <!-- Modal -->
+
                 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">

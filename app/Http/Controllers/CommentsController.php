@@ -10,10 +10,19 @@ class CommentsController extends Controller
 
     public function store(Request $request)
     {
-        //
         $request->validate(['text' => ['required', 'string']]);
-        $post = \App\Post::find($request['post_id']);
-        $comment = auth()->user()->comments()->make(['text'=>$request['text']])->commentable()->associate($post)->save();
+        $comment = auth()->user()->comments()->make(['text'=>$request['text']]);
+        //
+        if($request['post_id']){
+            $post = \App\Post::find($request['post_id']);
+            $comment->commentable()->associate($post)->save();
+        }else{
+            $parent = \App\Comment::find($request['comment_id']);
+            $post = $parent->commentable;
+            $comment->commentable()->associate($post);
+            $comment = $parent->replies()->save($comment);
+        }
+
         if(! $comment){
             return back()->with('flash_message', '댓글 작성에 실패했습니다')->withInput();
         }
