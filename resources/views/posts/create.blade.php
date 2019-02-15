@@ -92,7 +92,6 @@
             form.addEventListener('submit', function(e){
                 e.preventDefault();
                 if(Object.keys(tempFiles).length == 0){
-                    alert(1);
                     form.submit();
                     return false;
                 }

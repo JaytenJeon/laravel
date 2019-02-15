@@ -21,6 +21,8 @@ Auth::routes();
 Route::resource('posts', 'PostsController');
 
 Route::resource('images', 'ImagesController', ['only' => ['store','destroy']]);
+Route::resource('comments', 'CommentsController', ['only' => ['store','destroy']]);
+
 //DB::listen(function ($query){
 //    dump($query->sql);
 //});

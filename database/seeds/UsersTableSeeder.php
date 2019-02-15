@@ -20,8 +20,8 @@ class UsersTableSeeder extends Seeder
                 'password' => bcrypt('qweqwe')
             ]);
         }
-        factory(App\User::class, 10)->create(['fixed_nickname'=>null]);
-        factory(App\User::class, 10)->create(['unfixed_nickname'=>null]);
+        factory(App\User::class, 5)->create(['fixed_nickname'=>null]);
+        factory(App\User::class, 5)->create(['unfixed_nickname'=>null]);
 
     }
 }

@@ -71,9 +71,8 @@ class PostsController extends Controller
             });
 //            echo dd($images);
         }else{
-            echo "<script> alert(1); </script>";
 
-    }
+        }
         return redirect(route('posts.index'))->with('flash_message', '글이 저장되었습니다.')->withInput();
 
     }
@@ -92,7 +91,8 @@ class PostsController extends Controller
         if(!$post){
             return redirect(route('posts.index'))->with(['flash_message'=>'비정상적인 접근입니다.', 'flash_type'=>'danger']);
         }
-        return view('posts.show',compact('post'));
+        $comments = $post->comments()->get();
+        return view('posts.show',compact('post', 'comments'));
     }
 
     /**

@@ -14,7 +14,7 @@ class CommentsTableSeeder extends Seeder
         //
         $posts = App\Post::all();
         $posts->each(function($post){
-            $users = App\User::take(10)->get();
+            $users = App\User::take(3)->get();
             foreach ($users as $user){
                 $post->comments()->save(factory(App\Comment::class)->make()->authorable()->associate($user));
             }

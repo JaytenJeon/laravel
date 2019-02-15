@@ -19,6 +19,8 @@ class CreateCommentsTable extends Migration
             $table->text('text');
             $table->morphs('commentable');
             $table->morphs('authorable');
+            $table->softDeletes();
+
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('comments');
