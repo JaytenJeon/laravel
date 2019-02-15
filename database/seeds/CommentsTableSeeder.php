@@ -19,5 +19,12 @@ class CommentsTableSeeder extends Seeder
                 $post->comments()->save(factory(App\Comment::class)->make()->authorable()->associate($user));
             }
         });
+        $comments = App\Comments::all();
+        $comments->each(function($comment){
+            $users = App\User::take(3)->get();
+            foreach ($users as $user){
+                $comment->replies()->save(factory(App\Comment::class)->make()->authorable()->associate($user))->parent()->associate($comment);
+            }
+        });
     }
 }

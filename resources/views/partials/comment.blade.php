@@ -3,7 +3,7 @@
     <div class="col-{{$ml}}">
     </div>
 @endif
-    
+
     @if($comment->trashed())
 
         <div class="card mb-3 col-{{12-$ml}} p-0">
@@ -31,7 +31,13 @@
     @endif
 
 </div>
-<form class="collapse ml-5 mb-3" id="collapseExample{{$comment->id}}" method="POST" action="{{route('comments.store')}}">
+<div class="row m-1">
+
+@if($ml+1>0)
+    <div class="col-{{$ml+1}}">
+    </div>
+@endif
+<form class="collapse p-0 mb-3 col-{{11-($ml)}}" id="collapseExample{{$comment->id}}" method="POST" action="{{route('comments.store')}}">
     {!! csrf_field() !!}
     <input type="hidden" name="comment_id" value="{{$comment->id}}">
     <div class="card">
@@ -54,6 +60,7 @@
 
     </div>
 </form>
+</div>
 @if($comment->replies->count() > 0)
 
     @foreach($comment->replies as $comment)
